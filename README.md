@@ -1,6 +1,13 @@
-# firebase_esp32
-
-A new Flutter project.
+# Hydroponic App
+##Screenshot
+- Halaman Login
+![alt text](https://github.com/[ahmad/fauzan]/[Hydroponic_App]/screenshot/[master]/Halaman login.jpg?raw=true)
+- Halaman Utama Petani
+![alt text](https://github.com/[ahmad/fauzan]/[Hydroponic_App]/screenshot/[master]/Halaman utama petani.jpg?raw=true)
+- Halaman Utama Pemilik Kebun
+![alt text](https://github.com/[ahmad/fauzan]/[Hydroponic_App]/screenshot/[master]/Halaman utama pemilik kebub.jpg?raw=true)
+- Halaman Kontrol
+![alt text](https://github.com/[ahmad/fauzan]/[Hydroponic_App]/screenshot/[master]/Halaman kontrol.jpg?raw=true)
 
 ## Getting Started
 
