@@ -1,6 +1,6 @@
 # Hydroponic App
 ## Screenshot
-- Halaman Login
+
 ![alt text](https://github.com/[ahmad/fauzan]/[Hydroponic_App]/screenshot/[master]/Halaman login.jpg?raw=true)
 - Halaman Utama Petani
 ![alt text](https://github.com/[ahmad/fauzan]/[Hydroponic_App]/screenshot/[master]/Halaman utama petani.jpg?raw=true)
