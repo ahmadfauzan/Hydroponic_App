@@ -1,13 +1,14 @@
 # Hydroponic App
 ## Screenshot
 - Halaman Login
-![alt text](https://github.com/[ahmad/fauzan]/[Hydroponic_App]/screenshot/[master]/Halaman%20login.jpg?raw=true)
+<img src="/screenshot/Halaman%20login.jpg" width="200"/>
 - Halaman Utama Petani
-![alt text](https://github.com/[ahmad/fauzan]/[Hydroponic_App]/screenshot/[master]/Halaman utama petani.jpg?raw=true)
+<img src="/screenshot/Halaman%20utama%20petani.jpg" width="200"/>
 - Halaman Utama Pemilik Kebun
-![alt text](https://github.com/[ahmad/fauzan]/[Hydroponic_App]/screenshot/[master]/Halaman utama pemilik kebub.jpg?raw=true)
+<img src="/screenshot/Halaman%20utama%20pemilik%20kebub.jpg" width="200"/>
 - Halaman Kontrol
-![alt text](https://github.com/[ahmad/fauzan]/[Hydroponic_App]/screenshot/[master]/Halaman kontrol.jpg?raw=true)
+<img src="/screenshot/Halaman%20kontrol.jpg" width="200"/>
+
 
 ## Getting Started
 
