@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1032474301484",
+    "firebase_url": "https://hydroponic-app-353406-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "hydroponic-app-353406",
+    "storage_bucket": "hydroponic-app-353406.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032474301484:android:3da7e3be87f046cb3cad89",
+        "android_client_info": {
+          "package_name": "com.example.firebase_esp32"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1032474301484-et1iu69j561vh3r6h90pea3to2mcnh9q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firebase_esp32",
+            "certificate_hash": "b2df473d839aac6b093762aa9ea45ed74d80a9b3"
+          }
+        },
+        {
+          "client_id": "1032474301484-09pn3vuhotq3v47a3r7kcvoi5chh1q6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTC8-DvlNaCt5JLRUGmkPEmpLwbXsNULY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032474301484-09pn3vuhotq3v47a3r7kcvoi5chh1q6d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

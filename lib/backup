@@ -1,0 +1,262 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:water_bottle/water_bottle.dart';
+
+import 'addnote.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Hidroponic App",
+      theme: ThemeData(
+        primaryColor: Colors.greenAccent[700],
+      ),
+      home: Home(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final fb = FirebaseDatabase.instance;
+  late DatabaseReference _dbref;
+
+  late String databasejson = '';
+  DateTime? timestamp;
+  String? dateTime;
+  DateFormat dateFormat = DateFormat("dd-MM-yyyy HH:mm:ss");
+  bool isAutoLamp = false;
+  var autoLamp;
+  bool isLamp = false;
+  var lamp;
+  var sdistance;
+  var distance;
+  var distancePercentage;
+  var dallas;
+
+  // Water bottle
+  final plainBottleRef = GlobalKey<WaterBottleState>();
+  final chemistryBottleRef = GlobalKey<SphericalBottleState>();
+  final triangleBottleRef = GlobalKey<TriangularBottleState>();
+  var waterLevel = 0.1;
+  var selectedStyle = 1;
+
+  _readdb_once() {
+    DatabaseReference starCountRef =
+        FirebaseDatabase.instance.ref('data/dateTime/timestamp');
+    starCountRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+
+      databasejson = data.toString();
+      setState(() {
+        dateTime = dateFormat.format(timestamp =
+            DateTime.fromMillisecondsSinceEpoch(
+                int.parse(databasejson) * 1000));
+      });
+      // print(databasejson);
+    });
+  }
+
+  _readdb_auto() {
+    DatabaseReference starCountRef =
+        FirebaseDatabase.instance.ref('relay/autoLamp');
+    starCountRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+
+      setState(() {
+        if (data == 1) {
+          isAutoLamp = true;
+        } else {
+          isAutoLamp = false;
+        }
+      });
+    });
+  }
+
+  _readdb_lamp() {
+    DatabaseReference starCountRef =
+        FirebaseDatabase.instance.ref('relay/lamp');
+    starCountRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+
+      setState(() {
+        if (data == 1) {
+          isLamp = true;
+        } else {
+          isLamp = false;
+        }
+      });
+      // print(databasejson);
+    });
+  }
+
+  _readdb_suhu() {
+    DatabaseReference starCountRef =
+        FirebaseDatabase.instance.ref('data/sensor/dallas');
+    starCountRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+
+      setState(() {
+        dallas = data;
+      });
+      // print(databasejson);
+    });
+  }
+
+  _readdb_distance() {
+    DatabaseReference starCountRef =
+        FirebaseDatabase.instance.ref('data/sensor/ultrasonic');
+    starCountRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+      sdistance = data;
+      // sdistance = '3';
+
+      setState(() {
+        distancePercentage = (3.5 / sdistance) * 100;
+        if (distancePercentage > 100) {
+          distancePercentage = 100;
+        }
+        // waterLevel = distancePercentage / 100;
+        chemistryBottleRef.currentState?.waterLevel =
+            distancePercentage / 100; // 0.0~1.0
+        print(distancePercentage);
+        print(chemistryBottleRef.currentState?.waterLevel);
+      });
+    });
+  }
+
+  _updatevalue() {
+    if (isAutoLamp) {
+      autoLamp = 1;
+    } else {
+      autoLamp = 0;
+    }
+    if (isLamp) {
+      lamp = 1;
+      autoLamp = 0;
+      isAutoLamp = false;
+    } else {
+      lamp = 0;
+    }
+    _dbref.child("relay").update({
+      "autoLamp": autoLamp,
+      "lamp": lamp,
+    });
+
+    print(autoLamp);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _dbref = FirebaseDatabase.instance.ref();
+    _readdb_once();
+    _readdb_auto();
+    _readdb_lamp();
+    _readdb_distance();
+    _readdb_suhu();
+    // _updatevalue();
+  }
+
+  Widget build(BuildContext context) {
+    final ref = fb.ref().child('todos');
+    // final ref2 = _dbref.ref().child('data');
+    List lists = [];
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text(
+          'coba-coba',
+          style: TextStyle(
+            fontSize: 30,
+          ),
+        ),
+        backgroundColor: Colors.indigo[900],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              dateTime.toString(),
+            ),
+            Text('Auto'),
+            Switch(
+              value: isAutoLamp,
+              onChanged: (value) {
+                setState(() {
+                  isAutoLamp = value;
+                  _updatevalue();
+                  // print(isSwitched);
+                });
+              },
+              activeTrackColor: Colors.lightGreenAccent,
+              activeColor: Colors.green,
+            ),
+            Text('LED'),
+            Switch(
+              value: isLamp,
+              onChanged: (value) {
+                setState(() {
+                  isLamp = value;
+                  _updatevalue();
+                  // print(isSwitched);
+                });
+              },
+              activeTrackColor: Colors.lightGreenAccent,
+              activeColor: Colors.green,
+            ),
+            Text('Suhu: ' + dallas.toString()),
+            Text('Water Level: ' + distancePercentage.toString()),
+            Center(
+              child: SizedBox(
+                width: 250,
+                height: 150,
+                child: selectedStyle == 0
+                    ? WaterBottle(
+                        key: plainBottleRef,
+                        waterColor: Colors.blue,
+                        bottleColor: Colors.lightBlue,
+                        capColor: Colors.blueGrey)
+                    : selectedStyle == 1
+                        ? SphericalBottle(
+                            key: chemistryBottleRef,
+                            waterColor: Colors.blue,
+                            bottleColor: Colors.lightBlue,
+                            capColor: Colors.grey.shade700,
+                          )
+                        : TriangularBottle(
+                            key: triangleBottleRef,
+                            waterColor: Colors.lime,
+                            bottleColor: Colors.limeAccent,
+                            capColor: Colors.red,
+                          ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
