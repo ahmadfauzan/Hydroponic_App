@@ -1,6 +1,14 @@
-# firebase_esp32
+# Hydroponic App
+## Screenshot
+- Halaman Login
+<img src="/screenshot/Halaman%20login.jpg" width="200"/>
+- Halaman Utama Petani
+<img src="/screenshot/Halaman%20utama%20petani.jpg" width="200"/>
+- Halaman Utama Pemilik Kebun
+<img src="/screenshot/Halaman%20utama%20pemilik%20kebub.jpg" width="200"/>
+- Halaman Kontrol
+<img src="/screenshot/Halaman%20kontrol.jpg" width="200"/>
 
-A new Flutter project.
 
 ## Getting Started
 
